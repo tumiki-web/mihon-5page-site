@@ -69,13 +69,33 @@
     });
   });
 
+  const trainerViewport = window.matchMedia('(max-width: 768px)');
+  document.querySelectorAll('[data-trainer-toggle]').forEach(button => {
+    const panel = document.getElementById(button.getAttribute('aria-controls'));
+    if (!panel) return;
+    const setState = expanded => {
+      const open = trainerViewport.matches && expanded;
+      button.setAttribute('aria-expanded', String(open));
+      button.querySelector('span').textContent = open ? '表示を戻す' : '他のトレーナーも見る';
+      panel.classList.toggle('is-open', open);
+      panel.setAttribute('aria-hidden', String(trainerViewport.matches && !open));
+    };
+    button.addEventListener('click', () => setState(button.getAttribute('aria-expanded') !== 'true'));
+    trainerViewport.addEventListener?.('change', () => setState(false));
+    setState(false);
+  });
+
   const dialog = document.querySelector('.reserve-dialog');
   let reserveTrigger = null;
   document.querySelectorAll('[data-reserve]').forEach(button => {
     button.addEventListener('click', () => {
       reserveTrigger = button;
       if (menuButton?.getAttribute('aria-expanded') === 'true') closeMenu(false);
-      if (dialog?.showModal && !dialog.open) dialog.showModal();
+      if (dialog?.showModal && !dialog.open) {
+        dialog.showModal();
+        dialog.setAttribute('tabindex', '-1');
+        dialog.focus({ preventScroll: true });
+      }
     });
   });
   document.querySelectorAll('[data-dialog-close]').forEach(button => button.addEventListener('click', () => dialog?.close()));

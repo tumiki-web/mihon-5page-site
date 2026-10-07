@@ -15,3 +15,67 @@
 @media(max-width:1024px){.trainer-grid,.trainer-strip{grid-template-columns:repeat(5,220px);overflow-x:auto;padding-bottom:16px;scroll-snap-type:x mandatory}.trainer-card,.trainer-mini{scroll-snap-align:start}.reason-list,.rules-grid{grid-template-columns:1fr 1fr}.faq-layout{grid-template-columns:1fr}}
 @media(max-width:768px){.intro-grid,.info-grid{grid-template-columns:1fr;gap:48px}.feature-grid,.simple-steps,.price-digest-grid{display:block;margin-top:55px}.feature-card,.simple-steps li,.price-digest-item{min-height:0;padding:25px 0;border-right:0;border-bottom:1px solid var(--line)}.feature-card h3,.simple-steps h3{margin-top:24px}.training-cards{grid-template-columns:1fr;margin-top:50px}.space-digest{grid-template-columns:1fr;min-height:0}.space-digest-media{min-height:330px;height:65vw}.space-digest-copy{padding-top:70px;padding-bottom:80px}.trainer-strip{grid-template-columns:repeat(5,min(72vw,290px));margin-right:calc(var(--pad)*-1)}.price-digest-item{border-color:rgba(255,255,255,.22)}.info-band::after{right:-.16em;left:auto;top:60px;bottom:auto;font-size:31vw;writing-mode:vertical-rl}.reason-list,.recommend-list,.equipment-grid,.rules-grid,.choice-grid{grid-template-columns:1fr}.reason-list li{min-height:230px}.recommend-list{gap:0}.trainer-grid{display:block;overflow:visible;padding:0}.trainer-card{margin-bottom:44px}.trainer-card h3{font-size:17px}.service-block{padding-top:94px;padding-bottom:94px}.floor-caption{display:block}.floor-caption span{display:block;margin-bottom:8px}.equipment-grid{gap:45px}.amenities{grid-template-columns:1fr 1fr}.amenities li{border-bottom:1px solid var(--line)}.price-hero-panel{grid-template-columns:1fr}.billing-example{grid-template-columns:1fr;padding:28px}.billing-example small{text-align:left}.flow-list{display:block}.flow-list li{min-height:0;padding:25px 0;border-right:0;border-bottom:1px solid var(--line)}.flow-list h3{margin-top:25px}.visit-flow{display:block}.visit-flow li{padding:24px 0}.visit-flow li:not(:last-child)::after{content:"↓";right:0;top:auto;bottom:-13px}.bring-grid{grid-template-columns:1fr 1fr}.faq-answer{padding-left:0;padding-right:10px}}
 @media(max-width:390px){.training-card-copy,.rule-card,.bring-item{padding:25px 22px}.trainer-strip{grid-template-columns:repeat(5,76vw)}.amenities,.bring-grid{grid-template-columns:1fr}.sub-fees>div{display:block}.sub-fees dd{margin-top:8px}.main-fee strong{font-size:70px}.faq-item button{font-size:15px}}
+
+/* Readability and mobile interaction refinements */
+.trainer-more{display:contents}.trainer-toggle{display:none}
+.compare-cards{display:none}
+.intro-grid .section-title{font-size:clamp(34px,4.3vw,64px)}
+.faq-layout{grid-template-columns:minmax(460px,.9fr) 1.1fr;gap:clamp(56px,7vw,110px)}
+.faq-layout .section-title{font-size:clamp(40px,3.5vw,52px)}
+
+@media(max-width:1024px){.faq-layout{grid-template-columns:1fr}}
+
+@media(max-width:768px){
+  .intro-grid .section-title{font-size:clamp(29px,8.5vw,40px)}
+  .trainer-strip,.trainer-grid{display:block;margin-right:0;overflow:visible;padding-bottom:0}
+  .trainer-strip .trainer-more{display:none}
+  .trainer-mini,.trainer-card{width:100%;margin-bottom:44px}
+  .trainer-mini h3,.trainer-card h3{font-size:16px}
+  .trainer-more{display:grid;grid-template-columns:1fr;max-height:0;overflow:hidden;opacity:0;visibility:hidden;transition:max-height .45s var(--ease),opacity .3s ease}
+  .trainer-more.is-open{max-height:3200px;opacity:1;visibility:visible}
+  .trainer-toggle{width:100%;min-height:54px;display:flex;align-items:center;justify-content:center;gap:14px;margin-top:4px;border:1px solid var(--ink);background:transparent;color:var(--ink);font-weight:700}
+  .trainer-strip + .trainer-toggle{display:none}
+  .trainer-toggle i{position:relative;width:15px;height:15px}
+  .trainer-toggle i::before,.trainer-toggle i::after{content:"";position:absolute;left:0;top:50%;width:100%;height:1px;background:currentColor;transition:transform .25s}
+  .trainer-toggle i::after{transform:rotate(90deg)}
+  .trainer-toggle[aria-expanded=true] i::after{transform:rotate(0)}
+  .compare-wrap{display:none}
+  .compare-cards{display:grid;gap:14px;margin-top:50px}
+  .compare-card{padding:26px 22px;border:1px solid rgba(255,255,255,.24);background:#242723}
+  .compare-card h3{margin:0 0 18px;color:var(--lime);font-size:20px;letter-spacing:.08em}
+  .compare-card dl{margin:0}
+  .compare-card dl>div{display:grid;grid-template-columns:94px 1fr;gap:12px;padding:13px 0;border-top:1px solid rgba(255,255,255,.16)}
+  .compare-card dt{color:#bfc2ba;font-size:12px}
+  .compare-card dd{margin:0;color:#fff;font-size:14px}
+  .floor-map{margin:52px calc(var(--pad)*-.45) 0;padding:12px}
+  .floor-map img{width:100%;aspect-ratio:3/2;object-fit:cover}
+  .floor-caption{padding:0 8px 5px}
+  .amenities{grid-template-columns:1fr 1fr;border:1px solid var(--line)}
+  .amenities li,.amenities li:first-child,.amenities li:last-child{padding:18px 14px;border:0;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .amenities li:nth-child(2n){border-right:0}
+  .amenities li:nth-last-child(-n+2){border-bottom:0}
+  .facility-note{padding:15px 12px;font-size:13px;letter-spacing:-.02em;word-break:keep-all}
+  .faq-layout .section-title{font-size:clamp(29px,8vw,40px)}
+  .section:has(.trainer-strip) #trainers-title{font-size:32px}
+  #why-title{font-size:30px}
+  .section:has(.trainer-strip) #trainers-title .phrase,#why-title .phrase,body:has(.price-hero-panel) .final-cta #final-title .sp-copy .phrase{white-space:nowrap}
+  body:has(.price-hero-panel) .final-cta #final-title .sp-copy .phrase{font-size:35px}
+  #equipment-title{font-size:clamp(27px,7.4vw,31px)}
+  #rules-title{font-size:23px;word-break:keep-all;overflow-wrap:normal}
+  .footer-info p:last-child{width:130px;word-break:keep-all;overflow-wrap:normal}
+}
+
+@media(max-width:340px){
+  #why-title{font-size:23px}
+  .section:has(.trainer-strip) #trainers-title{font-size:25px}
+  body:has(.price-hero-panel) .final-cta #final-title .sp-copy .phrase{font-size:28px}
+  #equipment-title{font-size:23px}
+  #rules-title{font-size:20px}
+  #trainers-title{font-size:25px}
+  #how-title{font-size:27px}
+  .final-cta h2{font-size:28px}
+  .facility-note{font-size:12px}
+  .compare-card dl>div{grid-template-columns:82px 1fr}
+}
+
+@media(prefers-reduced-motion:reduce){.trainer-more,.trainer-toggle i::after{transition:none!important}}
