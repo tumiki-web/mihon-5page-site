@@ -87,11 +87,26 @@
 
   const dialog = document.querySelector('.reserve-dialog');
   let reserveTrigger = null;
+  let dialogScrollY = 0;
+  const lockDialogScroll = () => {
+    const scrollbarGap = window.innerWidth - document.documentElement.clientWidth;
+    dialogScrollY = window.scrollY;
+    document.body.style.setProperty('--dialog-scroll-y', `-${dialogScrollY}px`);
+    document.body.style.setProperty('--dialog-scrollbar-gap', `${scrollbarGap}px`);
+    document.body.classList.add('dialog-open');
+  };
+  const unlockDialogScroll = () => {
+    document.body.classList.remove('dialog-open');
+    document.body.style.removeProperty('--dialog-scroll-y');
+    document.body.style.removeProperty('--dialog-scrollbar-gap');
+    window.scrollTo({ top: dialogScrollY, left: 0, behavior: 'auto' });
+  };
   document.querySelectorAll('[data-reserve]').forEach(button => {
     button.addEventListener('click', () => {
       reserveTrigger = button;
       if (menuButton?.getAttribute('aria-expanded') === 'true') closeMenu(false);
       if (dialog?.showModal && !dialog.open) {
+        lockDialogScroll();
         dialog.showModal();
         dialog.setAttribute('tabindex', '-1');
         dialog.focus({ preventScroll: true });
@@ -100,7 +115,10 @@
   });
   document.querySelectorAll('[data-dialog-close]').forEach(button => button.addEventListener('click', () => dialog?.close()));
   dialog?.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
-  dialog?.addEventListener('close', () => reserveTrigger?.focus());
+  dialog?.addEventListener('close', () => {
+    unlockDialogScroll();
+    reserveTrigger?.focus({ preventScroll: true });
+  });
 
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const revealItems = document.querySelectorAll('.reveal');
